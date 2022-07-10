@@ -12,7 +12,7 @@ export const ProductList = ({ products }) => {
   return (
     <ProductsContainer>
       {products.map((product) => (
-        <ProductCard>
+        <ProductCard key={product.id}>
           <ImageContainer>
             <img src={product.images[0]} alt={product.name}></img>
           </ImageContainer>

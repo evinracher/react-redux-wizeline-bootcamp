@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
- 
+import styled, { createGlobalStyle } from "styled-components";
+
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
@@ -7,6 +7,14 @@ const GlobalStyle = createGlobalStyle`
     background: white;
     font-family: Open-Sans, Helvetica, Sans-Serif;
   }
-`
- 
+`;
+
+export const Main = styled.div`
+  display: flex;
+  height: 500px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
 export default GlobalStyle;

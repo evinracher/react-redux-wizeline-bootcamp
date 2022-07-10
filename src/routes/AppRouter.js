@@ -1,12 +1,20 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import { Products } from "../pages/Products";
 import { Cart } from "../pages/Cart";
 import { Home } from "../pages/Home";
 import { Header } from "../components/Header";
 import { Login } from "../pages/Login";
+import { useSelector } from "react-redux";
+import { selectUser } from "../slices/userSlice";
 
 export const AppRouter = () => {
+  const user = useSelector(selectUser);
   return (
     <Router>
       <Header />
@@ -15,13 +23,13 @@ export const AppRouter = () => {
           <Home />
         </Route>
         <Route path="/products">
-          <Products />
+          {user.username ? <Products /> : <Redirect to="/login" />}
         </Route>
         <Route path="/cart">
-          <Cart />
+          {user.username ? <Cart /> : <Redirect to="/login" />}
         </Route>
         <Route path="/login">
-          <Login />
+          {user.username ? <Redirect to="/products" /> : <Login />}
         </Route>
       </Switch>
     </Router>

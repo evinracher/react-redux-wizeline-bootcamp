@@ -1,9 +1,9 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export const Bar = styled.div`
   padding: 0px 16px;
-  background-color: #E4212D;
+  background-color: #e4212d;
   overflow: hidden;
   display: flex;
   flex-direction: row;
@@ -21,6 +21,20 @@ export const Links = styled(Link)`
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
+`;
+
+export const LogoutBtn = styled.button`
+  color: white;
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  border: none;
+  background-color: transparent;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export const Text = styled.p`
