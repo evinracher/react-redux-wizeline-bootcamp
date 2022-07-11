@@ -17,4 +17,11 @@ export const Main = styled.div`
   justify-content: center;
 `;
 
+export const Button = styled.button`
+  height: 2rem;
+  background-color: rgb(32, 52, 73);
+  color: white;
+  cursor: pointer;
+`;
+
 export default GlobalStyle;

@@ -6,7 +6,10 @@ import {
   ProductDetails,
   ProductImage,
   ProductQuantity,
+  RemoveBtn,
+  Summary,
 } from "../styles/components/CartList.styles";
+import { Button } from "../styles/globalStyles";
 
 export const CartList = ({ items }) => {
   const total = useMemo(
@@ -40,15 +43,17 @@ export const CartList = ({ items }) => {
                     <p>Product code: {item.id}</p>
                   </div>
                 </ProductDetails>
-                <ProductQuantity>
-                  <input
-                    type="number"
-                    value={item.quantity}
-                    label="quantity"
-                    readOnly
-                  ></input>
-                  <button>X</button>
-                </ProductQuantity>
+                <td>
+                  <ProductQuantity>
+                    <input
+                      type="number"
+                      value={item.quantity}
+                      label="quantity"
+                      readOnly
+                    ></input>
+                    <RemoveBtn>X</RemoveBtn>
+                  </ProductQuantity>
+                </td>
                 <td>{item.price}</td>
                 <td>{item.price * item.quantity}</td>
               </Item>
@@ -56,13 +61,13 @@ export const CartList = ({ items }) => {
           </tbody>
         </table>
       </CartListContainer>
-      <div>
+      <Summary>
         <h3>Summary</h3>
         <hr />
         <p>Items: {items.length}</p>
         <p>Total cost: ${total}</p>
-        <button>Checkout</button>
-      </div>
+        <Button>Checkout</Button>
+      </Summary>
     </CartContainer>
   );
 };
