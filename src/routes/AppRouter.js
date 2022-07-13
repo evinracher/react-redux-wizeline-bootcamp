@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../slices/userSlice";
 
 export const AppRouter = () => {
-  const user = useSelector(selectUser);
+  const { username } = useSelector(selectUser);
   return (
     <Router>
       <Header />
@@ -23,13 +23,13 @@ export const AppRouter = () => {
           <Home />
         </Route>
         <Route path="/products">
-          {user.username ? <Products /> : <Redirect to="/login" />}
+          {username ? <Products /> : <Redirect to="/login" />}
         </Route>
         <Route path="/cart">
-          {user.username ? <Cart /> : <Redirect to="/login" />}
+          {username ? <Cart /> : <Redirect to="/login" />}
         </Route>
         <Route path="/login">
-          {user.username ? <Redirect to="/products" /> : <Login />}
+          {username ? <Redirect to="/products" /> : <Login />}
         </Route>
       </Switch>
     </Router>

@@ -49,7 +49,6 @@ export const CartList = ({ items }) => {
                       type="number"
                       value={item.quantity}
                       label="quantity"
-                      readOnly
                     ></input>
                     <RemoveBtn>X</RemoveBtn>
                   </ProductQuantity>
