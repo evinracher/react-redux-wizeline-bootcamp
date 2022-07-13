@@ -9,6 +9,6 @@ export const Products = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     getProducts().then((data) => dispatch(fetchProducts(data)));
-  });
+  }, [dispatch]);
   return <ProductList products={products} />;
 };
