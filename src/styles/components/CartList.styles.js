@@ -43,4 +43,12 @@ export const Summary = styled.div`
   background-color: rgb(245, 245, 245);
   height: fit-content;
   padding: 1rem;
+  min-width: 10rem;
+`;
+
+export const Table = styled.table`
+  td {
+    min-width: 4rem;
+    text-align: center;
+  }
 `;
