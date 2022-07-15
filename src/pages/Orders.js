@@ -62,7 +62,7 @@ export const Orders = () => {
   return (
     <Main>
       <Container>
-        <h3>Order history</h3>
+        <h3>Orders history</h3>
         <hr />
         {renderContent()}
       </Container>
