@@ -33,6 +33,9 @@ export const Orders = () => {
             <p>
               <b>Total:</b> ${latestOrder.total}
             </p>
+            <p>
+              <b>Result:</b> {latestOrder.message}
+            </p>
           </div>
           <Table>
             <thead>
