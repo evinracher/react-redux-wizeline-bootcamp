@@ -13,7 +13,7 @@ export const order = createAsyncThunk(
       body: JSON.stringify(order),
     });
     const result = await response.json();
-    const date = new Date().toLocaleDateString();
+    const date = new Date().toISOString();
     return { ...result, total, date };
   }
 );
@@ -25,6 +25,9 @@ export const cartSlice = createSlice({
     orders: [],
   },
   reducers: {
+    setOrders: (state, action) => {
+      return { ...state, orders: action.payload };
+    },
     addToCart: ({ items }, action) => {
       const item = action.payload;
       const index = items.findIndex((product) => product.id === item.id);
@@ -51,11 +54,13 @@ export const cartSlice = createSlice({
       state.orders.push(action.payload);
       state.items = [];
       state.loading = false;
+      localStorage.setItem("orders", JSON.stringify(state.orders));
     });
   },
 });
 
-export const { addToCart, changeQuantity, removeFromCart } = cartSlice.actions;
+export const { addToCart, changeQuantity, removeFromCart, setOrders } =
+  cartSlice.actions;
 
 export const selectCart = (state) => state.cart;
 

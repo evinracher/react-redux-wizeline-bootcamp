@@ -11,11 +11,16 @@ export const userSlice = createSlice({
   initialState: {},
   reducers: {
     logout: () => {
+      localStorage.removeItem("user");
       return {};
+    },
+    setUser: (_, action) => {
+      return action.payload;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(login.fulfilled, (_, action) => {
+      localStorage.setItem("user", JSON.stringify(action.payload));
       return action.payload;
     });
     builder.addCase(login.rejected, (_, action) => {
@@ -24,7 +29,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const { logout } = userSlice.actions;
+export const { logout, setUser } = userSlice.actions;
 
 export const selectUser = (state) => state.user;
 

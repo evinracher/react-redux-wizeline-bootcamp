@@ -40,53 +40,55 @@ export const CartList = ({ items }) => {
 
   return (
     <CartContainer>
-      <CartListContainer>
+      <div>
         <h3>Shopping cart</h3>
         <hr />
-        {items.length ? (
-          <Table>
-            <thead>
-              <tr>
-                <th>Product details</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              {items.map((item) => (
-                <Item key={item.id}>
-                  <ProductDetails>
-                    <ProductImage
-                      src={item.images[0]}
-                      alt={item.name}
-                    ></ProductImage>
-                    <div>
-                      <p>{item.name}</p>
-                      <p>Product code: {item.id}</p>
-                    </div>
-                  </ProductDetails>
-                  <td>
-                    <ProductQuantity>
-                      <input
-                        type="number"
-                        value={item.quantity}
-                        label="quantity"
-                        onChange={handleQuantityChange(item.id)}
-                      ></input>
-                      <RemoveBtn onClick={handleRemove(item.id)}>X</RemoveBtn>
-                    </ProductQuantity>
-                  </td>
-                  <td>{item.price}</td>
-                  <td>{item.price * item.quantity}</td>
-                </Item>
-              ))}
-            </tbody>
-          </Table>
-        ) : (
-          <p>You haven't added any item to the cart.</p>
-        )}
-      </CartListContainer>
+        <CartListContainer>
+          {items.length ? (
+            <Table>
+              <thead>
+                <tr>
+                  <th>Product details</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {items.map((item) => (
+                  <Item key={item.id}>
+                    <ProductDetails>
+                      <ProductImage
+                        src={item.images[0]}
+                        alt={item.name}
+                      ></ProductImage>
+                      <div>
+                        <p>{item.name}</p>
+                        <p>Product code: {item.id}</p>
+                      </div>
+                    </ProductDetails>
+                    <td>
+                      <ProductQuantity>
+                        <input
+                          type="number"
+                          value={item.quantity}
+                          label="quantity"
+                          onChange={handleQuantityChange(item.id)}
+                        ></input>
+                        <RemoveBtn onClick={handleRemove(item.id)}>X</RemoveBtn>
+                      </ProductQuantity>
+                    </td>
+                    <td>{item.price}</td>
+                    <td>{item.price * item.quantity}</td>
+                  </Item>
+                ))}
+              </tbody>
+            </Table>
+          ) : (
+            <p>You haven't added any item to the cart.</p>
+          )}
+        </CartListContainer>
+      </div>
       {!!items.length && (
         <Summary>
           <h3>Summary</h3>

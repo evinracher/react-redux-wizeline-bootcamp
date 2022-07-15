@@ -8,12 +8,20 @@ export const CartContainer = styled.div`
   padding: 1rem;
 `;
 
-export const CartListContainer = styled.div``;
+export const CartListContainer = styled.div`
+  max-width: 90vw;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+`;
 
 export const ProductDetails = styled.td`
   display: flex;
+  flex-direction: column;
   gap: 1rem;
   align-items: center;
+  @media (min-width: 600px) {
+    flex-direction: row;
+  }
 `;
 
 export const ProductImage = styled.img`
