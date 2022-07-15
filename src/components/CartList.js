@@ -26,7 +26,9 @@ export const CartList = ({ items }) => {
   const handleQuantityChange =
     (id) =>
     ({ target: { value } }) => {
-      dispatch(changeQuantity({ id, value }));
+      if (value >= 1) {
+        dispatch(changeQuantity({ id, value }));
+      }
     };
 
   const handleRemove = (id) => () => {
@@ -73,6 +75,7 @@ export const CartList = ({ items }) => {
                           type="number"
                           value={item.quantity}
                           label="quantity"
+                          min="0"
                           onChange={handleQuantityChange(item.id)}
                         ></input>
                         <RemoveBtn onClick={handleRemove(item.id)}>X</RemoveBtn>
