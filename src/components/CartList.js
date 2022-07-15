@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { useDispatch } from "react-redux";
-import { changeQuantity, removeFromCart } from "../slices/cartSlice";
+import { changeQuantity, order, removeFromCart } from "../slices/cartSlice";
 import {
   CartContainer,
   CartListContainer,
@@ -30,6 +30,10 @@ export const CartList = ({ items }) => {
 
   const handleRemove = (id) => () => {
     dispatch(removeFromCart(id));
+  };
+
+  const handleOrder = () => {
+    dispatch(order({ items, total }));
   };
 
   return (
@@ -87,7 +91,7 @@ export const CartList = ({ items }) => {
           <hr />
           <p>Items: {items.length}</p>
           <p>Total cost: ${total}</p>
-          <Button>Checkout</Button>
+          <Button onClick={handleOrder}>Checkout</Button>
         </Summary>
       )}
     </CartContainer>
