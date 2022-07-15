@@ -24,4 +24,10 @@ export const Button = styled.button`
   cursor: pointer;
 `;
 
+export const Item = styled.tr`
+  td {
+    padding: 1rem;
+  }
+`;
+
 export default GlobalStyle;

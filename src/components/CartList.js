@@ -1,10 +1,11 @@
 import React, { useMemo } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { changeQuantity, order, removeFromCart } from "../slices/cartSlice";
+import { Button, Item } from "../styles/globalStyles";
 import {
   CartContainer,
   CartListContainer,
-  Item,
   ProductDetails,
   ProductImage,
   ProductQuantity,
@@ -12,10 +13,10 @@ import {
   Summary,
   Table,
 } from "../styles/components/CartList.styles";
-import { Button } from "../styles/globalStyles";
 
 export const CartList = ({ items }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const total = useMemo(
     () => items.reduce((acum, curr) => acum + curr.price * curr.quantity, 0),
@@ -34,6 +35,7 @@ export const CartList = ({ items }) => {
 
   const handleOrder = () => {
     dispatch(order({ items, total }));
+    history.push("/orders");
   };
 
   return (

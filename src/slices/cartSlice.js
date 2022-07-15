@@ -4,7 +4,6 @@ import config from "../config";
 export const order = createAsyncThunk(
   "cart/order",
   async ({ items: order, total }) => {
-    console.log(order);
     const response = await fetch(config.API_URL + "/orders", {
       method: "POST",
       headers: {
@@ -14,7 +13,8 @@ export const order = createAsyncThunk(
       body: JSON.stringify(order),
     });
     const result = await response.json();
-    return { ...result, total };
+    const date = new Date().toLocaleDateString();
+    return { ...result, total, date };
   }
 );
 
@@ -44,9 +44,13 @@ export const cartSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(order.fulfilled, ({ items, orders }, action) => {
-      orders.push(action.payload);
-      items = [];
+    builder.addCase(order.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(order.fulfilled, (state, action) => {
+      state.orders.push(action.payload);
+      state.items = [];
+      state.loading = false;
     });
   },
 });

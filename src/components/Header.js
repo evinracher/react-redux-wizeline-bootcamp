@@ -17,6 +17,7 @@ export const Header = () => {
       <FlexContainer>
         <Links to="/cart">Cart</Links>
         <Links to="/products">Products</Links>
+        <Links to="/orders">Orders</Links>
         {user.username ? (
           <LogoutBtn
             onClick={() => {

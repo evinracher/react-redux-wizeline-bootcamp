@@ -8,7 +8,6 @@ export const Products = () => {
   const { products } = useSelector(selectProducts);
   const { items } = useSelector(selectCart);
   const itemsIds = items.map((item) => item.id);
-  console.log(itemsIds);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchProducts());

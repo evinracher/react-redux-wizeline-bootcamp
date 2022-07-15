@@ -10,12 +10,6 @@ export const CartContainer = styled.div`
 
 export const CartListContainer = styled.div``;
 
-export const Item = styled.tr`
-  td {
-    padding: 1rem;
-  }
-`;
-
 export const ProductDetails = styled.td`
   display: flex;
   gap: 1rem;

@@ -12,6 +12,7 @@ import { Header } from "../components/Header";
 import { Login } from "../pages/Login";
 import { useSelector } from "react-redux";
 import { selectUser } from "../slices/userSlice";
+import { Orders } from "../pages/Orders";
 
 export const AppRouter = () => {
   const { username } = useSelector(selectUser);
@@ -27,6 +28,9 @@ export const AppRouter = () => {
         </Route>
         <Route path="/cart">
           {username ? <Cart /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/orders">
+          {username ? <Orders /> : <Redirect to="/login" />}
         </Route>
         <Route path="/login">
           {username ? <Redirect to="/products" /> : <Login />}
