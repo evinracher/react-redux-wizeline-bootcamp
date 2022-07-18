@@ -1,48 +1,67 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import config from "../config";
+
+export const order = createAsyncThunk(
+  "cart/order",
+  async ({ items: order, total }) => {
+    const response = await fetch(config.API_URL + "/orders", {
+      method: "POST",
+      headers: {
+        "X-API-KEY": config.API_KEY,
+        Accept: "application/json",
+      },
+      body: JSON.stringify(order),
+    });
+    const result = await response.json();
+    const date = new Date().toISOString();
+    return { ...result, total, date };
+  }
+);
 
 export const cartSlice = createSlice({
   name: "cart",
   initialState: {
-    items: [
-      {
-        id: 1,
-        name: '85" QN95B Samsung Neo QLED 4K Smart TV (2022)',
-        price: 5999.99,
-        quantity: 1,
-        images: [
-          "https://image-us.samsung.com/SamsungUS/home/easy-asset/05192022/2022_QS95B_QN95B_QN85B_Q80B_Q70B_Q-Symphony_PC_708xV.jpg?$feature-benefit-jpg",
-          "https://image-us.samsung.com/SamsungUS/home/easy-asset/05192022/2022_QN85B_Q80B_100_Color_Volume_with_Quantum_Dot_PC_708xV.jpg?$feature-benefit-jpg",
-          "https://image-us.samsung.com/SamsungUS/home/easy-asset/05192022/2022_QLED_Features_EyeComfort_Mode_4K_PC_708xV.jpg?$feature-benefit-jpg",
-        ],
-      },
-      {
-        id: 2,
-        name: '85" QN95B Samsung Neo QLED 4K Smart TV (2022)',
-        price: 5999.99,
-        quantity: 1,
-        images: [
-          "https://image-us.samsung.com/SamsungUS/home/easy-asset/05192022/2022_QS95B_QN95B_QN85B_Q80B_Q70B_Q-Symphony_PC_708xV.jpg?$feature-benefit-jpg",
-          "https://image-us.samsung.com/SamsungUS/home/easy-asset/05192022/2022_QN85B_Q80B_100_Color_Volume_with_Quantum_Dot_PC_708xV.jpg?$feature-benefit-jpg",
-          "https://image-us.samsung.com/SamsungUS/home/easy-asset/05192022/2022_QLED_Features_EyeComfort_Mode_4K_PC_708xV.jpg?$feature-benefit-jpg",
-        ],
-      },
-      {
-        id: 3,
-        name: "50” Class QN90B Samsung Neo QLED 4K Smart TV (2022)",
-        price: 1599.99,
-        quantity: 1,
-        images: [
-          "https://image-us.samsung.com/SamsungUS/home/easy-asset/02252022/01_QN65QN90BAFXZA_011_Front3_Titan-Black.jpg?$product-details-jpg",
-          "https://image-us.samsung.com/SamsungUS/home/easy-asset/02252022/02_QN65QN90BAFXZA_004_L-Side_Titan-Black.jpg?$product-details-jpg",
-          "https://image-us.samsung.com/SamsungUS/home/easy-asset/02252022/04_SDSAC-3862-04-Qn90B-PDP-GALLERY-TV-1600x1200.jpg?$product-details-jpg",
-          "https://image-us.samsung.com/SamsungUS/home/easy-asset/02252022/05_QN90B_Lifestyle_03_Approved.jpg?$product-details-jpg",
-        ],
-      },
-    ],
+    items: [],
+    orders: [],
   },
-  reducers: {},
+  reducers: {
+    setOrders: (state, action) => {
+      return { ...state, orders: action.payload };
+    },
+    addToCart: ({ items }, action) => {
+      const item = action.payload;
+      const index = items.findIndex((product) => product.id === item.id);
+      if (index >= 0) {
+        items[index].quantity++;
+      } else {
+        items.push({ ...item, quantity: 1 });
+      }
+    },
+    removeFromCart: (state, action) => {
+      state.items = state.items.filter((item) => item.id !== action.payload);
+    },
+    changeQuantity: ({ items }, action) => {
+      const { id, value } = action.payload;
+      const item = items.find((item) => item.id === id);
+      item.quantity = value;
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(order.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(order.fulfilled, (state, action) => {
+      state.orders.push(action.payload);
+      state.items = [];
+      state.loading = false;
+      localStorage.setItem("orders", JSON.stringify(state.orders));
+    });
+  },
 });
 
-export const selectCart = (state) => state.cart.items;
+export const { addToCart, changeQuantity, removeFromCart, setOrders } =
+  cartSlice.actions;
+
+export const selectCart = (state) => state.cart;
 
 export default cartSlice.reducer;

@@ -10,8 +10,9 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export const Main = styled.div`
+  box-sizing: border-box;
   display: flex;
-  height: 500px;
+  min-height: 80vh;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -22,6 +23,12 @@ export const Button = styled.button`
   background-color: rgb(32, 52, 73);
   color: white;
   cursor: pointer;
+`;
+
+export const Item = styled.tr`
+  td {
+    padding: 1rem;
+  }
 `;
 
 export default GlobalStyle;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CartContainer = styled.div`
+export const CartContainer = styled.form`
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
@@ -8,18 +8,20 @@ export const CartContainer = styled.div`
   padding: 1rem;
 `;
 
-export const CartListContainer = styled.div``;
-
-export const Item = styled.tr`
-  td {
-    padding: 1rem;
-  }
+export const CartListContainer = styled.div`
+  max-width: 90vw;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 `;
 
 export const ProductDetails = styled.td`
   display: flex;
+  flex-direction: column;
   gap: 1rem;
   align-items: center;
+  @media (min-width: 600px) {
+    flex-direction: row;
+  }
 `;
 
 export const ProductImage = styled.img`
@@ -43,4 +45,12 @@ export const Summary = styled.div`
   background-color: rgb(245, 245, 245);
   height: fit-content;
   padding: 1rem;
+  min-width: 10rem;
+`;
+
+export const Table = styled.table`
+  td {
+    min-width: 4rem;
+    text-align: center;
+  }
 `;

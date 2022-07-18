@@ -4,6 +4,6 @@ import { CartList } from "../components/CartList";
 import { selectCart } from "../slices/cartSlice";
 
 export const Cart = () => {
-  const items = useSelector(selectCart);
+  const { items } = useSelector(selectCart);
   return <CartList items={items}></CartList>;
 };

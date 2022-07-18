@@ -1,4 +1,6 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { addToCart, removeFromCart } from "../../slices/cartSlice";
 import {
   ProductsContainer,
   ProductCard,
@@ -9,6 +11,16 @@ import {
 } from "../../styles/components/ProductList.styles";
 
 export const ProductList = ({ products }) => {
+  const dispatch = useDispatch();
+
+  const handleProductInCart = (product) => () => {
+    if (product.inCart) {
+      dispatch(removeFromCart(product.id));
+    } else {
+      dispatch(addToCart(product));
+    }
+  };
+
   return (
     <ProductsContainer>
       {products.map((product) => (
@@ -19,7 +31,9 @@ export const ProductList = ({ products }) => {
           <ProductName>{product.name}</ProductName>
           <Tag>{product.categories[0]}</Tag>
           <p>${product.price}</p>
-          <AddToCartBtn>Add to cart</AddToCartBtn>
+          <AddToCartBtn onClick={handleProductInCart(product)}>
+            {product.inCart ? "Remove from cart" : "Add to cart"}
+          </AddToCartBtn>
         </ProductCard>
       ))}
     </ProductsContainer>
