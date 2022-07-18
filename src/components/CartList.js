@@ -19,16 +19,17 @@ export const CartList = ({ items }) => {
   const history = useHistory();
 
   const total = useMemo(
-    () => items.reduce((acum, curr) => acum + curr.price * curr.quantity, 0),
+    () =>
+      items
+        .reduce((acum, curr) => acum + curr.price * curr.quantity, 0)
+        .toFixed(2),
     [items]
   );
 
   const handleQuantityChange =
     (id) =>
     ({ target: { value } }) => {
-      if (value >= 1) {
-        dispatch(changeQuantity({ id, value }));
-      }
+      dispatch(changeQuantity({ id, value }));
     };
 
   const handleRemove = (id) => () => {
@@ -41,7 +42,7 @@ export const CartList = ({ items }) => {
   };
 
   return (
-    <CartContainer>
+    <CartContainer onSubmit={handleOrder}>
       <div>
         <h3>Shopping cart</h3>
         <hr />
@@ -75,7 +76,7 @@ export const CartList = ({ items }) => {
                           type="number"
                           value={item.quantity}
                           label="quantity"
-                          min="0"
+                          min="1"
                           onChange={handleQuantityChange(item.id)}
                         ></input>
                         <RemoveBtn onClick={handleRemove(item.id)}>X</RemoveBtn>
@@ -98,7 +99,7 @@ export const CartList = ({ items }) => {
           <hr />
           <p>Items: {items.length}</p>
           <p>Total cost: ${total}</p>
-          <Button onClick={handleOrder}>Checkout</Button>
+          <Button>Checkout</Button>
         </Summary>
       )}
     </CartContainer>

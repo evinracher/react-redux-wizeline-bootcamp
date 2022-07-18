@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const CartContainer = styled.div`
+export const CartContainer = styled.form`
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
