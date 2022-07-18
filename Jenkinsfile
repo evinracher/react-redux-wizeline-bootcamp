@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_ID = credentials('DOCKER_ID')
-        DOCKER_PASSWORD = credentials('dockerhub')
+        DOCKER_HUB_CREDENTIALS = credentials('dockerhub')
     }
 
     stages {
@@ -11,7 +10,7 @@ pipeline {
             steps {
                 echo 'Initializing..'
                 echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
-                sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_ID --password-stdin'
+                sh 'echo $DOCKER_HUB_CREDENTIALS_PSW | docker login -u $DOCKER_HUB_CREDENTIALS_USR --password-stdin'
             }
         }
         stage('Stage 1') {
