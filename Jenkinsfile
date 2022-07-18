@@ -23,7 +23,7 @@ pipeline {
             steps {
                 echo 'Publishing..'
                 echo 'Publishing image to DockerHub..'
-                sh 'docker push $DOCKER_ID/wizefe:latest'
+                sh 'docker push $dockerhub_USR/wizefe:latest'
             }
         }
         stage('Cleanup') {
