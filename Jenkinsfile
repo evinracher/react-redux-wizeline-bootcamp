@@ -16,7 +16,7 @@ pipeline {
         stage('Stage 1') {
             steps {
                 echo 'Building..'
-                sh 'docker build -t wizefe .'
+                sh 'docker build -t $dockerhub_USR/wizefe .'
             }
         }
         stage('Stage 2') {
